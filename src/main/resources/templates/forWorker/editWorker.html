@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Getting Started: Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<th:block th:insert="fragments/header.html :: css" />
+
+<body>
+
+<th:block th:insert="fragments/navBar.html :: navBar" />
+
+<div class="row justify-content-center  p-2	">Edit Worker data</div>
+
+<form  th:action="@{/workers/edit/{id}(id=${worker.id})}"  method="post" th:object="${worker}">
+
+    <div>
+        <input type="hidden" th:field="*{user}" />
+    </div>
+
+    <div class="row justify-content-center  p-1">
+        <div class="col-sm  p-1 justify-content-end"
+             style="text-align: right">Worker role :
+        </div>
+        <div class="col-sm  p-1">
+                <select name="workerRole"  id="workerRole">
+                    <option
+                            th:each="workerRole : ${workerRoles}"
+                            th:value="${workerRole}" th:text="${workerRole}" th:if="${workerRole != currentRole}">
+                    </option>
+                </select>
+        </div>
+    </div>
+
+    <div class="row justify-content-center alert alert-danger" role="alert" th:if="${#fields.hasErrors('workerRole')}" th:errors="*{workerRole}">Name Error</div>
+
+    <div class="row justify-content-center  p-1">
+        <div class="col-sm  p-1 justify-content-end"
+             style="text-align: right">Is busy :</div>
+        <div class="col-sm  p-1">
+            <div class="col-sm  p-1">
+                <select name="isBusy"  id="isBusy">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center alert alert-danger" role="alert" th:if="${#fields.hasErrors('isBusy')}" th:errors="*{isBusy}">Name Error</div>
+
+    <div class="row justify-content-center  p-1">
+        <input class="btn btn-primary" type="submit" value="Edit" />
+    </div>
+</form>
+
+
+
+
+<th:block th:insert="fragments/scripts.html :: js" />
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+
+<th:block th:insert="fragments/header.html :: css"/>
+
+<body>
+
+<th:block th:insert="fragments/navBar.html :: navBar"/>
+
+<p>
+    Hello. Choose something in menu please!
+</p>
+
+
+<br/>
+<br/>
+
+
+<th:block th:insert="fragments/scripts.html :: js"/>
+
+</body>
+</html>

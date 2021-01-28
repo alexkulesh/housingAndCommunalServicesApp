@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org ">
+<th:block th:fragment="navBar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">ЖКХ Ленинского райнона г.Гродно</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a class="nav-link" th:href="@{index}">Home
+                    <span class="sr-only">(current)</span>
+                </a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{forUser/addRequestForm}">New request</a></li>
+                <li class="nav-item"><a sec:authorize="hasRole('ROLE_WORKER')" class="nav-link" th:href="@{forWorker/addWorker}">New worker</a></li>
+                <li class="nav-item"><a sec:authorize="hasRole('ROLE_WORKER')" class="nav-link" th:href="@{forDispatcher/addWorkBrigade}">Create work brigade</a></li>
+                <li class="nav-item dropdown"><a
+                        class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"> Lists </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/users}">Persons list</a>
+                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/requestForms}">Request forms</a>
+                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/workBrigades}">Work brigades</a>
+                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/workers}">Workers list</a>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/users}">Persons list</a>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/requestForms}">Request forms</a>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/workBrigades}">Work brigades</a>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/workers}">Workers list</a>
+                        <a sec:authorize="hasRole('ROLE_WORKER')" class="dropdown-item" th:href="@{/workers}">Workers list</a>
+                        <a sec:authorize="hasRole('ROLE_WORKER')" class="dropdown-item" th:href="@{/workBrigades}">Work brigades</a>
+                        <a class="dropdown-item" th:href="@{/workPlans}">Work plan</a>
+                    </div>
+                </li>
+            </ul>
+
+            <div sec:authorize="!isAuthenticated()">
+                <form class="form-inline my-2 my-lg-0"
+                      th:action="@{/login}" method="get">
+                    Hello, Anonymous!
+                    <input class="btn btn-outline-success" type="submit" value="Sign In"/>
+                </form>
+            </div>
+
+            <div sec:authorize="isAuthenticated()">
+                <form class="form-inline my-2 my-lg-0"
+                      th:action="@{/logout}" method="post">
+                    Hello, <span sec:authentication="principal.username">Anonymous</span>!
+                    <input class="btn btn-outline-success" type="submit" value="Sign Out"/>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+</th:block>
+</html>

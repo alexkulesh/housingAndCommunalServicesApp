@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New request form</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+
+<body>
+    <div class="container">
+        <h1>Request form</h1>
+        <hr>
+        <h2>Save request form</h2>
+        <form action="#" th:action="@{/saveRequestForm}" th:object="${requestForms}" method="POST">
+            <input type="text" th:field = "*{completionDate}" placeholder="Completion date" class="form-control mb-4 col-4" required="required">
+
+            <input type="text" th:field = "*{user}" placeholder="User" class="form-control mb-4 col-4" required="required">
+
+            <select th:field="*{heatSupplyWorkScale}" class="form-control mb-4 col-4" required="required">
+                <option th:value="NONE" th:text="NONE"></option>
+                <option th:value="ONE" th:text="ONE"></option>
+                <option th:value="TWO" th:text="TWO"></option>
+                <option th:value="THREE" th:text="THREE"></option>
+                <option th:value="FOUR" th:text="FOUR"></option>
+                <option th:value="FLAT" th:text="FLAT"></option>
+            </select>
+
+            <select th:field="*{powerSupplyWorkScale}" class="form-control mb-4 col-4" required="required">
+                <option th:value="NONE" th:text="NONE"></option>
+                <option th:value="ONE" th:text="ONE"></option>
+                <option th:value="TWO" th:text="TWO"></option>
+                <option th:value="THREE" th:text="THREE"></option>
+                <option th:value="FOUR" th:text="FOUR"></option>
+                <option th:value="FLAT" th:text="FLAT"></option>
+            </select>
+
+            <select th:field="*{waterSupplyWorkScale}" class="form-control mb-4 col-4" required="required">
+                <option th:value="NONE" th:text="NONE"></option>
+                <option th:value="ONE" th:text="ONE"></option>
+                <option th:value="TWO" th:text="TWO"></option>
+                <option th:value="THREE" th:text="THREE"></option>
+                <option th:value="FOUR" th:text="FOUR"></option>
+                <option th:value="FLAT" th:text="FLAT"></option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Save request form</button>
+        </form>
+    </div>
+
+</body>
+</html>

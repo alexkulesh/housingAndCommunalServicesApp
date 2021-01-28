@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New request form</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+
+<body>
+<div class="container">
+    <h1>Work brigade</h1>
+    <hr>
+    <h2>Type work brigade data</h2>
+    <form action="#" th:action="@{/saveWorkBrigade}" th:object="${dto}" method="POST">
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" ><font color="Black" size="4">*Plumber id:</font></label>
+            <div class="col-sm-10">
+                <select name="worker" th:field="*{plumber}">
+                    <option
+                            th:each="plumber : ${workers}"
+                            th:value="${plumber.id}" th:text="${plumber.id}"
+                            th:if="${plumber.workerRole == rolePlumber and plumber.isBusy != isBusy}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" ><font color="Black" size="4">*Plumber id:</font></label>
+            <div class="col-sm-10">
+                <select name="worker" th:field="*{electrician}">
+                    <option
+                            th:each="electrician : ${workers}"
+                            th:value="${electrician.id}" th:text="${electrician.id}"
+                            th:if="${electrician.workerRole == roleElectrician and electrician.isBusy != isBusy}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" ><font color="Black" size="4">*Plumber id:</font></label>
+            <div class="col-sm-10">
+                <select name="worker" th:field="*{repairer}">
+                    <option
+                            th:each="repairer : ${workers}"
+                            th:value="${repairer.id}" th:text="${repairer.id}"
+                            th:if="${repairer.workerRole == roleRepairer and repairer.isBusy != isBusy}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Create new work brigade</button>
+    </form>
+</div>
+
+</body>
+</html>
