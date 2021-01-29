@@ -9,10 +9,8 @@
 
 <th:block th:insert="fragments/header.html :: css" />
 
-<body>
-
 <th:block th:insert="fragments/navBar.html :: navBar" />
-
+<body th:style="'background: url(https://img.newgrodno.by/wp-content/uploads/2019/06/IMG_9827.jpg);'">>
 <div th:if="${param.error}">Invalid username and password.</div>
 <div th:if="${param.logout}">You have been logged out.</div>
 <form th:action="@{/login}" method="post">

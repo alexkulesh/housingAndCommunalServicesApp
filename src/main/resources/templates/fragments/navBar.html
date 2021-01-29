@@ -18,24 +18,18 @@
                 <li class="nav-item active"><a class="nav-link" th:href="@{index}">Home
                     <span class="sr-only">(current)</span>
                 </a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{forUser/addRequestForm}">New request</a></li>
-                <li class="nav-item"><a sec:authorize="hasRole('ROLE_WORKER')" class="nav-link" th:href="@{forWorker/addWorker}">New worker</a></li>
-                <li class="nav-item"><a sec:authorize="hasRole('ROLE_WORKER')" class="nav-link" th:href="@{forDispatcher/addWorkBrigade}">Create work brigade</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{forUser/addRequestForm}">Create new request</a></li>
+                <li class="nav-item"><a sec:authorize="hasRole('ROLE_WORKER')" class="nav-link" th:href="@{forWorker/addWorker}">Add worker</a></li>
+                <li class="nav-item"><a sec:authorize="hasRole('ROLE_DISPATCHER')" class="nav-link" th:href="@{forDispatcher/addWorkBrigade}">Add work brigade</a></li>
                 <li class="nav-item dropdown"><a
                         class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                         role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"> Lists </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/users}">Persons list</a>
-                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/requestForms}">Request forms</a>
-                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/workBrigades}">Work brigades</a>
-                        <a sec:authorize="hasRole('ROLE_DISPATCHER')" class="dropdown-item" th:href="@{/workers}">Workers list</a>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/users}">Persons list</a>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/requestForms}">Request forms</a>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/workBrigades}">Work brigades</a>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/workers}">Workers list</a>
-                        <a sec:authorize="hasRole('ROLE_WORKER')" class="dropdown-item" th:href="@{/workers}">Workers list</a>
-                        <a sec:authorize="hasRole('ROLE_WORKER')" class="dropdown-item" th:href="@{/workBrigades}">Work brigades</a>
+                        <a sec:authorize="hasAnyRole('ROLE_DISPATCHER', 'ROLE_ADMIN')" class="dropdown-item" th:href="@{/users}">List of persons</a>
+                        <a sec:authorize="hasAnyRole('ROLE_DISPATCHER', 'ROLE_ADMIN')" class="dropdown-item" th:href="@{/requestForms}">List of requests</a>
+                        <a sec:authorize="hasAnyRole('ROLE_DISPATCHER', 'ROLE_WORKER','ROLE_ADMIN')" class="dropdown-item" th:href="@{/workBrigades}">List of work brigades</a>
+                        <a sec:authorize="hasAnyRole('ROLE_DISPATCHER', 'ROLE_WORKER', 'ROLE_ADMIN')" class="dropdown-item" th:href="@{/workers}">List of workers</a>
                         <a class="dropdown-item" th:href="@{/workPlans}">Work plan</a>
                     </div>
                 </li>

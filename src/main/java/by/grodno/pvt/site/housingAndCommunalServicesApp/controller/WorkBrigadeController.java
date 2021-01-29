@@ -5,6 +5,7 @@ import by.grodno.pvt.site.housingAndCommunalServicesApp.domain.WorkerRole;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.dto.WorkBrigadeDTO;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.dto.WorkerDTO;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.scheduling.UserExpirationHandler;
+import by.grodno.pvt.site.housingAndCommunalServicesApp.service.RequestFormService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkBrigadeService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkerService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.impl.JPAWorkBrigadeService;
@@ -27,11 +28,14 @@ public class WorkBrigadeController {
     @Autowired
     private WorkerService workerService;
     @Autowired
+    private RequestFormService requestFormService;
+    @Autowired
     private ConversionService convertionService;
     @Autowired
     private JPAWorkBrigadeService jpaWorkBrigadeService;
     @Autowired
     UserExpirationHandler userExpirationHandler;
+
     @GetMapping("/workBrigades")
     public String getAllWorkBrigades(Model model) {
 
@@ -42,12 +46,14 @@ public class WorkBrigadeController {
 
         return "workBrigades";
     }
+
     @GetMapping("forDispatcher/addWorkBrigade")
-    public String newWorkBrigade(Model model){
+    public String newWorkBrigade(Model model) {
         WorkBrigade workBrigade = new WorkBrigade();
         List<WorkerDTO> workers = workerService.getWorkers().stream().map(u -> convertionService.convert(u, WorkerDTO.class))
                 .collect(Collectors.toList());
         WorkBrigadeDTO workBrigadeDTO = new WorkBrigadeDTO();
+        model.addAttribute("requestForms", requestFormService.getRequestForms());
         model.addAttribute("workBrigades", workBrigade);
         model.addAttribute("workers", workers);
         model.addAttribute("dto", workBrigadeDTO);
@@ -59,12 +65,30 @@ public class WorkBrigadeController {
     }
 
     @PostMapping("/saveWorkBrigade")
-    public String saveWorkBrigade(@ModelAttribute("workBrigades") WorkBrigade workBrigade){
+    public String saveWorkBrigade(@ModelAttribute("workBrigades") WorkBrigade workBrigade) {
         Date startDate = new Date();
+        Date endDate = new Date();
         WorkBrigadeDTO workBrigadeDTO = new WorkBrigadeDTO();
-        Date endDate = new Date(startDate.getTime() + 20 * 1000);
-        jpaWorkBrigadeService.hireWorkers(workBrigade.getPlumber().getId(),workBrigade.getElectrician().getId(), workBrigade.getRepairer().getId(),startDate, endDate);
+        Integer waterSupplyWorkScale = workBrigadeDTO.getRequestForm().getWaterSupplyWorkScale().getScale();
+        Integer powerSupplyWorkScale = workBrigadeDTO.getRequestForm().getPowerSupplyWorkScale().getScale();
+        Integer repairWorkScale = workBrigadeDTO.getRequestForm().getRepairWorkScale().getScale();
+        if (waterSupplyWorkScale > powerSupplyWorkScale) {
+            endDate = new Date(startDate.getTime() + 20 * 1000 * waterSupplyWorkScale);
+        } else if (waterSupplyWorkScale > repairWorkScale) {
+            endDate = new Date(startDate.getTime() + 20 * 1000 * waterSupplyWorkScale);
+        } else if (powerSupplyWorkScale > waterSupplyWorkScale) {
+            endDate = new Date(startDate.getTime() + 20 * 1000 * powerSupplyWorkScale);
+        } else if (powerSupplyWorkScale > repairWorkScale) {
+            endDate = new Date(startDate.getTime() + 20 * 1000 * powerSupplyWorkScale);
+        } else if (repairWorkScale > waterSupplyWorkScale) {
+            endDate = new Date(startDate.getTime() + 20 * 1000 * repairWorkScale);
+        } else if (repairWorkScale > powerSupplyWorkScale) {
+            endDate = new Date(startDate.getTime() + 20 * 1000 * repairWorkScale);
+        }
+
+        jpaWorkBrigadeService.hireWorkers(workBrigade.getPlumber().getId(), workBrigade.getElectrician().getId(), workBrigade.getRepairer().getId(), startDate, endDate);
         return "redirect:/workBrigades";
     }
 
 }
+

@@ -81,7 +81,7 @@ public class JPAWorkBrigadeService implements WorkBrigadeService, InitializingBe
         return findByWorkEndTimeBefore.stream().map(WorkBrigade::getRepairer).collect(Collectors.toList());
     };
 
-    public void hireWorkers(Integer plumber, Integer electrician, Integer repairer, Date start, Date end) {
+    public void hireWorkers(Integer plumber, Integer electrician, Integer repairer, Date start,  Date end) {
         Worker findPlumber = workersRepo.findById(plumber).get();
         Worker findElectrician = workersRepo.findById(electrician).get();
         Worker findRepairer = workersRepo.findById(repairer).get();

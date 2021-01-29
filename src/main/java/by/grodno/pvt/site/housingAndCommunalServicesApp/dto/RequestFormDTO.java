@@ -12,7 +12,7 @@ public class RequestFormDTO {
     private Integer id;
     private Date completionDate;
     private User user;
-    private WorkScale heatSupplyWorkScale;
-    private WorkScale powerSupplyWorkScale;
     private WorkScale waterSupplyWorkScale;
+    private WorkScale powerSupplyWorkScale;
+    private WorkScale repairWorkScale;
 }

@@ -13,9 +13,9 @@ public class RequestFormDomainToDTOConverter implements Converter<RequestForm, R
         requestFormDTO.setId(source.getId());
         requestFormDTO.setCompletionDate(source.getCompletionDate());
         requestFormDTO.setUser(source.getUser());
-        requestFormDTO.setHeatSupplyWorkScale(source.getHeatSupplyWorkScale());
-        requestFormDTO.setPowerSupplyWorkScale(source.getPowerSupplyWorkScale());
         requestFormDTO.setWaterSupplyWorkScale(source.getWaterSupplyWorkScale());
+        requestFormDTO.setPowerSupplyWorkScale(source.getPowerSupplyWorkScale());
+        requestFormDTO.setRepairWorkScale(source.getRepairWorkScale());
         return requestFormDTO;
     }
 }

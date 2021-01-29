@@ -1,67 +1,41 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Request forms</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Request forms</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <link rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous">
-<th:block th:insert="fragments/header.html :: css" />
+<th:block th:insert="fragments/header.html :: css"/>
 <body>
-<th:block th:insert="fragments/navBar.html :: navBar" />
-
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Completion date</th>
-        <th scope="col">User id</th>
-        <th scope="col">Heat supply works scale(Rooms)</th>
-        <th scope="col">Power supply works scale(Rooms)</th>
-        <th scope="col">Water supply works scale(Rooms)</th>
-    </tr>
-    </thead>
-
-    <tr th:each="requestForm : ${requestForms}">
-        <td th:text="${requestForm.id}" />
-        <td th:text="${requestForm.completionDate}" />
-        <td th:text="${requestForm.user}" />
-        <td th:text="${requestForm.heatSupplyWorkScale}" />
-        <td th:text="${requestForm.powerSupplyWorkScale}" />
-        <td th:text="${requestForm.waterSupplyWorkScale}" />
-<!--        <td class="form-group blu-margin">-->
-<!--            <select class="form-control" th:field="${requestForm.id}"  id="selectHeatScale">-->
-<!--                <select th:field="*{number}">-->
-<!--            <select>-->
-<!--                <option value="0">select Heat supply work scale</option>-->
-<!--                <option th:each="requestForm : ${requestForms}" th:value="${requestForm.heatSupplyWorkScale}" th:text="${requestForm.heatSupplyWorkScale}"></option>-->
+<th:block th:insert="fragments/navBar.html :: navBar"/>
 
 
-<!--            </form>-->
-<!--                <form name="add" method="post" th:action="@{requestForms/requestForm.heatSupplyWorkScale}">-->
+<div class="container" style="background-color: white;">
+    <div class="row">
+        <div class="border col-lg-1">Id</div>
+        <div class="border col-lg-2">Completion date</div>
+        <div class="border col-lg-2">User id</div>
+        <div class="border col-lg-2">Water supply works scale(Rooms)</div>
+        <div class="border col-lg-2">Power supply works scale(Rooms)</div>
+        <div class="border col-lg-2">Repair works scale(Rooms)</div>
+    </div>
 
-<!--                <table>-->
-<!--                <tr>-->
-<!--                    <select>-->
-<!--                        <option value="0"> th:text="${requestForm.heatSupplyWorkScale}"</option>-->
-<!--                        <option>"ONE"</option>-->
-<!--                        <option>"TWO"</option>-->
-<!--                        <option>"TWO"</option>-->
-<!--                        <option>"TWO"</option>-->
-<!--                        <option>"TWO"</option>-->
-<!--                    </select>-->
-<!--                <td><input type="submit" value="Submit"/></td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--            </form>-->
-<!--        </td>-->
-    </tr>
-</table>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <div class="row" th:each="requestForm : ${requestForms}">
+
+    <div class="border col-lg-1" th:text="${requestForm.id}"></div>
+    <div class="border col-lg-2" th:text="${requestForm.completionDate}"></div>
+    <div class="border col-lg-2" th:text="${requestForm.user}"></div>
+    <div class="border col-lg-2" th:text="${requestForm.waterSupplyWorkScale}"></div>
+    <div class="border col-lg-2" th:text="${requestForm.powerSupplyWorkScale}"></div>
+    <div class="border col-lg-2" th:text="${requestForm.repairWorkScale}"></div>
+
+    </div>
+</div>
 </body>
+<th:block th:insert="fragments/scripts.html :: js"/>
 </html>

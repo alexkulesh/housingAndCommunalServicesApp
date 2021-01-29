@@ -20,7 +20,9 @@ public class WorkBrigade {
 
     private Date workStartTime;
     private Date workEndTime;
-
+    @OneToOne
+    @JoinColumn(name = "requestForm_id")
+    private RequestForm requestForm;
     private Boolean isBusy = false;
     @OneToOne
     @JoinColumn(name = "plumber_id")

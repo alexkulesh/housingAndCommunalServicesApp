@@ -26,11 +26,11 @@ public class RequestForm {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private WorkScale heatSupplyWorkScale;
+    private WorkScale waterSupplyWorkScale;
     
     private WorkScale powerSupplyWorkScale;
 
-    private WorkScale waterSupplyWorkScale;
+    private WorkScale repairWorkScale;
 
     @Override
     public String toString() {

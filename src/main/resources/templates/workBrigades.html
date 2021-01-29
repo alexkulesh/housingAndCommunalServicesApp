@@ -1,33 +1,42 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <title>Title</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <link rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous">
-<th:block th:insert="fragments/header.html :: css" />
+<th:block th:insert="fragments/header.html :: css"/>
 <body>
-<th:block th:insert="fragments/navBar.html :: navBar" />
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Plumber id</th>
-        <th scope="col">Electrician id</th>
-        <th scope="col">Repairer id</th>
-    </tr>
-    </thead>
+<th:block th:insert="fragments/navBar.html :: navBar"/>
 
-    <tr th:each="workBrigade: ${workBrigades}">
-        <td th:text="${workBrigade.id}" />
-        <td th:text="${workBrigade.plumber}" />
-        <td th:text="${workBrigade.electrician}" />
-        <td th:text="${workBrigade.repairer}" />
-    </tr>
-</table>
+<div class="container" style="background-color: white;">
+    <div class="row">
+        <div class="border col-lg-1">Id</div>
+        <div class="border col-lg-1">Work start date</div>
+        <div class="border col-lg-1">Work end date</div>
+        <div class="border col-lg-1">Request form id</div>
+        <div class="border col-lg-2">Plumber id</div>
+        <div class="border col-lg-2">Electrician id</div>
+        <div class="border col-lg-2">Repairer id</div>
+    </div>
+
+
+    <div class="row" th:each="workBrigade: ${workBrigades}">
+
+    <div class="border col-lg-1" th:text="${workBrigade.id}"></div>
+    <div class="border col-lg-1" th:text="${workBrigade.workStartTime}"></div>
+    <div class="border col-lg-1" th:text="${workBrigade.workEndTime}"></div>
+    <div class="border col-lg-1" th:text="${workBrigade.requestForm}"></div>
+    <div class="border col-lg-2" th:text="${workBrigade.plumber}"></div>
+    <div class="border col-lg-2" th:text="${workBrigade.electrician}"></div>
+    <div class="border col-lg-2" th:text="${workBrigade.repairer}"></div>
+
+    </div>
+</div>
 </body>
-<th:block th:insert="fragments/scripts.html :: js" />
+<th:block th:insert="fragments/scripts.html :: js"/>
 </html>

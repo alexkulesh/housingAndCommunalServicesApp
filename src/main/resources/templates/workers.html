@@ -1,40 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Title</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <link rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous">
-<th:block th:insert="fragments/header.html :: css" />
+<th:block th:insert="fragments/header.html :: css"/>
 <body>
-<th:block th:insert="fragments/navBar.html :: navBar" />
+<th:block th:insert="fragments/navBar.html :: navBar"/>
 
-    <div class="container">
-        <div class="row">
-            <div class="border col-lg-1">Id</div>
-            <div class="border col-lg-2">User id</div>
-            <div class="border col-lg-2">Worker role</div>
-            <div class="border col-lg-2">Is busy</div>
-            <div class="border col-lg-2" sec:authorize="hasRole('ROLE_WORKER')">Edit</div>
-        </div>
+<div class="container" style="background-color: white;">
+    <div class="row">
+        <div class="border col-lg-1">Id</div>
+        <div class="border col-lg-2">User id</div>
+        <div class="border col-lg-2">Worker role</div>
+        <div class="border col-lg-2">Is busy</div>
+        <div class="border col-lg-2" sec:authorize="hasRole('ROLE_WORKER')">Edit</div>
+    </div>
 
-        <div class="row" th:each="worker : ${workers}">
+    <div class="row" th:each="worker : ${workers}">
 
-            <div class="border col-lg-1" th:text="${worker.id}"></div>
-            <div class="border col-lg-2" th:text="${worker.user}"></div>
-            <div class="border col-lg-2" th:text="${worker.workerRole}"></div>
-            <div class="border col-lg-2" th:text="${worker.isBusy}"></div>
+    <div class="border col-lg-1" th:text="${worker.id}"></div>
+    <div class="border col-lg-2" th:text="${worker.user}"></div>
+    <div class="border col-lg-2" th:text="${worker.workerRole}"></div>
+    <div class="border col-lg-2" th:text="${worker.isBusy}"></div>
 
-            <div class="border col-lg-2">
-                <a class="btn btn-link"
-                   th:href="@{/workers/edit/{id}(id=${worker.id})}" th:if="${currentUser == worker.user}">Edit</a>
-            </div>
+    <div class="border col-lg-2">
+        <a class="btn btn-link"
+           th:href="@{/workers/edit/{id}(id=${worker.id})}" th:if="${currentUser == worker.user}">Edit</a>
+    </div>
 
-        </div>
+    </div>
+</div>
 
 </body>
-<th:block th:insert="fragments/scripts.html :: js" />
+<th:block th:insert="fragments/scripts.html :: js"/>
 </html>
