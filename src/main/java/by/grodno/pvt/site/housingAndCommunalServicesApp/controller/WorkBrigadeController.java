@@ -4,11 +4,11 @@ import by.grodno.pvt.site.housingAndCommunalServicesApp.domain.WorkBrigade;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.domain.WorkerRole;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.dto.WorkBrigadeDTO;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.dto.WorkerDTO;
-import by.grodno.pvt.site.housingAndCommunalServicesApp.scheduling.UserExpirationHandler;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.RequestFormService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkBrigadeService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkerService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.impl.JPAWorkBrigadeService;
+import by.grodno.pvt.site.housingAndCommunalServicesApp.service.impl.WorkerHireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
@@ -32,9 +32,7 @@ public class WorkBrigadeController {
     @Autowired
     private ConversionService convertionService;
     @Autowired
-    private JPAWorkBrigadeService jpaWorkBrigadeService;
-    @Autowired
-    UserExpirationHandler userExpirationHandler;
+    private WorkerHireService workerHireService;
 
     @GetMapping("/workBrigades")
     public String getAllWorkBrigades(Model model) {
@@ -68,10 +66,9 @@ public class WorkBrigadeController {
     public String saveWorkBrigade(@ModelAttribute("workBrigades") WorkBrigade workBrigade) {
         Date startDate = new Date();
         Date endDate = new Date();
-        WorkBrigadeDTO workBrigadeDTO = new WorkBrigadeDTO();
-        Integer waterSupplyWorkScale = workBrigadeDTO.getRequestForm().getWaterSupplyWorkScale().getScale();
-        Integer powerSupplyWorkScale = workBrigadeDTO.getRequestForm().getPowerSupplyWorkScale().getScale();
-        Integer repairWorkScale = workBrigadeDTO.getRequestForm().getRepairWorkScale().getScale();
+        Integer waterSupplyWorkScale = workBrigade.getRequestForm().getWaterSupplyWorkScale().getScale();
+        Integer powerSupplyWorkScale = workBrigade.getRequestForm().getPowerSupplyWorkScale().getScale();
+        Integer repairWorkScale = workBrigade.getRequestForm().getRepairWorkScale().getScale();
         if (waterSupplyWorkScale > powerSupplyWorkScale) {
             endDate = new Date(startDate.getTime() + 20 * 1000 * waterSupplyWorkScale);
         } else if (waterSupplyWorkScale > repairWorkScale) {
@@ -86,7 +83,10 @@ public class WorkBrigadeController {
             endDate = new Date(startDate.getTime() + 20 * 1000 * repairWorkScale);
         }
 
-        jpaWorkBrigadeService.hireWorkers(workBrigade.getPlumber().getId(), workBrigade.getElectrician().getId(), workBrigade.getRepairer().getId(), startDate, endDate);
+        workerHireService.hireWorkers(workBrigade.getPlumber().getId(), workBrigade.getElectrician().getId(), workBrigade.getRepairer().getId());
+        workBrigade.setWorkStartTime(startDate);
+        workBrigade.setWorkEndTime(endDate);
+        workBrigadeService.saveWorkBrigade(workBrigade);
         return "redirect:/workBrigades";
     }
 

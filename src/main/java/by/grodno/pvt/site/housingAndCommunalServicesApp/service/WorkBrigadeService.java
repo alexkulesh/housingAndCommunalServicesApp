@@ -21,7 +21,4 @@ public interface WorkBrigadeService {
 
     Page<WorkBrigade> getPage(Integer pageNum, Integer pageSize);
 
-    public List<Worker> freeWorkers();
-
-    void saveWorkers(List<Worker> workers);
 }

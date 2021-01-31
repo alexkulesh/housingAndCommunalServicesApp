@@ -64,45 +64,4 @@ public class JPAWorkBrigadeService implements WorkBrigadeService, InitializingBe
         repo.save(workBrigade);
 
     }
-    public List<Worker> freeWorkers() {
-        return workersRepo.findByIsBusy(false);
-    };
-
-    public List<Worker> busyPlumbers() {
-        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(new Date());
-        return findByWorkEndTimeBefore.stream().map(WorkBrigade::getPlumber).collect(Collectors.toList());
-    };
-    public List<Worker> busyElectricians() {
-        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(new Date());
-        return findByWorkEndTimeBefore.stream().map(WorkBrigade::getElectrician).collect(Collectors.toList());
-    };
-    public List<Worker> busyRepairers() {
-        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(new Date());
-        return findByWorkEndTimeBefore.stream().map(WorkBrigade::getRepairer).collect(Collectors.toList());
-    };
-
-    public void hireWorkers(Integer plumber, Integer electrician, Integer repairer, Date start,  Date end) {
-        Worker findPlumber = workersRepo.findById(plumber).get();
-        Worker findElectrician = workersRepo.findById(electrician).get();
-        Worker findRepairer = workersRepo.findById(repairer).get();
-        WorkBrigade workBrigade = new WorkBrigade();
-        workBrigade.setPlumber(findPlumber);
-        workBrigade.setElectrician(findElectrician);
-        workBrigade.setRepairer(findRepairer);
-        workBrigade.setWorkStartTime(start);
-        workBrigade.setWorkEndTime(end);
-        repo.save(workBrigade);
-        findPlumber.setIsBusy(true);
-        findElectrician.setIsBusy(true);
-        findRepairer.setIsBusy(true);
-        workersRepo.save(findPlumber);
-        workersRepo.save(findElectrician);
-        workersRepo.save(findRepairer);
-    }
-
-
-    public void saveWorkers(List<Worker> busy) {
-        workersRepo.saveAll(busy);
-    }
-
 }

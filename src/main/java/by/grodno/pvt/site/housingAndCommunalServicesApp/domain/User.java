@@ -33,8 +33,6 @@ public class User {
 
 	private Date birthdate;
 
-	private String avatarFileName;
-
 	private UserRole role;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

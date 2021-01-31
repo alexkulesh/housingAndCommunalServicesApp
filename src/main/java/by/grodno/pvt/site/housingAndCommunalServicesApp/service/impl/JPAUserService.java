@@ -23,7 +23,7 @@ import by.grodno.pvt.site.housingAndCommunalServicesApp.service.UserService;
 
 @Service
 @Transactional
-public class JPAUserService implements UserService, InitializingBean {
+public class JPAUserService implements UserService, InitializingBean{
 
 	@Autowired
 	private UserRepo repo;
@@ -52,12 +52,12 @@ public class JPAUserService implements UserService, InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		User user = new User(null, "Maxim", "Naumovich","+375334000100", "maximnaum@gmail.com", new Date(), null, UserRole.WORKER,  null);
-		User user2 = new User(null, "Sasha", "Siaroga","+375337000100", "sashakulesh@gmail.com", new Date(), null, UserRole.WORKER,  null);
-		User user3 = new User(null, "Siaroga", "Sasha","+375339000100" ,"sergeykulesh@gmail.com", new Date(), null, UserRole.TENANT,  null);
-		User user4 = new User(null, "Laxim", "3aumovich","+375335111100", "laximnaum@gmail.com", new Date(), null, UserRole.DISPATCHER,  null);
-		User user5 = new User(null, "Saxim", "4aumovich", "+375332000100", "saximnaum@gmail.com", new Date(), null, UserRole.DISPATCHER,  null);
-		User user6 = new User(null, "Caxim", "5aumovich", "+375336	000100", "caximnaum@gmail.com", new Date(), null, UserRole.DISPATCHER,  null);
+		User user = new User(null, "Maxim", "Naumovich","+375334000100", "maximnaum@gmail.com", new Date(), UserRole.DISPATCHER,  null);
+		User user2 = new User(null, "Sasha", "Siaroga","+375337000100", "sashakulesh@gmail.com", new Date(),  UserRole.WORKER,  null);
+		User user3 = new User(null, "Siaroga", "Sasha","+375339000100" ,"sergeykulesh@gmail.com", new Date(),  UserRole.TENANT,  null);
+		User user4 = new User(null, "Laxim", "3aumovich","+375335111100", "laximnaum@gmail.com", new Date(),  UserRole.DISPATCHER,  null);
+		User user5 = new User(null, "Saxim", "4aumovich", "+375332000100", "saximnaum@gmail.com", new Date(),  UserRole.DISPATCHER,  null);
+		User user6 = new User(null, "Caxim", "5aumovich", "+375336	000100", "caximnaum@gmail.com", new Date(), UserRole.DISPATCHER,  null);
 		Credentials credentials = new Credentials(null, "max", new Date(),true);
 		Credentials credentials2 = new Credentials(null, "sasha", new Date(),true);
 		Credentials credentials3 = new Credentials(null, "siaroga", new Date(),true);

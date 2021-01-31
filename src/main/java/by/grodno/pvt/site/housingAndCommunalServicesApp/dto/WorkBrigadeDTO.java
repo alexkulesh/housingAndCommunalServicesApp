@@ -11,6 +11,8 @@ import java.util.Date;
 public class WorkBrigadeDTO {
     private Integer id;
     private RequestForm requestForm;
+    private Date workStartTime;
+    private Date workEndTime;
     private Worker plumber;
     private Worker electrician;
     private Worker repairer;

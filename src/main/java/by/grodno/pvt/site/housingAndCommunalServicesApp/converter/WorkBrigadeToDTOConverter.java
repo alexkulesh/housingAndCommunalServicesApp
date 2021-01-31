@@ -11,6 +11,8 @@ public class WorkBrigadeToDTOConverter  implements Converter<WorkBrigade, WorkBr
     public WorkBrigadeDTO convert(WorkBrigade source) {
         WorkBrigadeDTO workBrigadeDTO = new WorkBrigadeDTO();
         workBrigadeDTO.setId(source.getId());
+        workBrigadeDTO.setWorkStartTime(source.getWorkStartTime());
+        workBrigadeDTO.setWorkEndTime(source.getWorkEndTime());
         workBrigadeDTO.setRequestForm(source.getRequestForm());
         workBrigadeDTO.setPlumber(source.getPlumber());
         workBrigadeDTO.setElectrician(source.getElectrician());

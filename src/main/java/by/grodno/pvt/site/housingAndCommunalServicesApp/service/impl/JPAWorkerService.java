@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class JPAWorkerService implements WorkerService, InitializingBean {
+public class JPAWorkerService implements WorkerService, InitializingBean{
     @Autowired
     private WorkersRepo repo;
     @Autowired
@@ -56,7 +56,7 @@ public class JPAWorkerService implements WorkerService, InitializingBean {
         Worker worker = new Worker(null, null, WorkerRole.PLUMBER, false, null);
         Worker worker2 = new Worker(null, null, WorkerRole.ELECTRICIAN, false, null);
         Worker worker3 = new Worker(null, null, WorkerRole.REPAIRER, false, null);
-        User user = new User(null, "John", "Grey", "+375336000100", "naum@gmail.com", new Date(), null, UserRole.WORKER,  null);
+        User user = new User(null, "John", "Grey", "+375336000100", "naum@gmail.com", new Date(), UserRole.WORKER,  null);
         Credentials credentials = new Credentials(null, "sss", new Date(),true);
         user.setCredentials(Collections.singletonList(credentials));
         worker.setUser(user);

@@ -9,6 +9,7 @@ import by.grodno.pvt.site.housingAndCommunalServicesApp.repo.UserRepo;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.UserService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkBrigadeService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkerService;
+import by.grodno.pvt.site.housingAndCommunalServicesApp.service.impl.WorkerHireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -36,6 +37,8 @@ public class WorkerController {
     @Autowired
     private WorkBrigadeService workBrigadeService;
     @Autowired
+    private WorkerHireService workerHireService;
+    @Autowired
     private ConversionService convertionService;
     @GetMapping("/workers")
     public String getAllWorkers(Model model, @AuthenticationPrincipal UserDetails currentUser) {
@@ -46,7 +49,7 @@ public class WorkerController {
 
         model.addAttribute("workers", workers);
         model.addAttribute("currentUser", userService.getUser(userId));
-        model.addAttribute("freeWorkers", workBrigadeService.freeWorkers());
+        model.addAttribute("freeWorkers", workerHireService.freeWorkers());
         return "workers";
     }
     @GetMapping("forWorker/addWorker")

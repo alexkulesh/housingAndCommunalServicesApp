@@ -14,7 +14,6 @@
 </p>
 	<div class="container" style="background-color: white;">
 		<div class="row">
-			<div class="border col-lg-1">Image</div>
 			<div class="border col-lg-1">Id</div>
 			<div class="border col-lg-2">
 				<a class="p-2" th:href="@{'/users'+'?fieldName=firstName'}">Firstname</a>
@@ -22,15 +21,10 @@
 			<div class="border col-lg-2">Lastname</div>
 			<div class="border col-lg-2">Phone number</div>
 			<div class="border col-lg-2">Edit</div>
-			<div class="border col-lg-4" sec:authorize="hasRole('ROLE_ADMIN')">Upload
-				img</div>
+
 		</div>
 
 		<div class="row" th:each="user : ${users}">
-			<div class="border justify-content-center col-lg-1 p-2">
-				<img th:src="@{/users/{uid}/img(uid=${user.id})}" width="75"
-					 height="75" alt="">
-			</div>
 			<div class="border col-lg-1" th:text="${user.id}"></div>
 			<div class="border col-lg-2" th:text="${user.firstName}"></div>
 			<div class="border col-lg-2" th:text="${user.lastName}"></div>
@@ -41,19 +35,6 @@
 				   th:href="@{/users/edit/{uid}(uid=${user.id})}" th:if="${user.id == currentUser}">Edit</a>
 			</div>
 
-			<div class="border col-lg-4" sec:authorize="hasRole('ROLE_ADMIN')">
-				<form method="POST" enctype="multipart/form-data"
-					  th:action="@{/users/{uid}/img(uid=${user.id})}">
-					<div class="custom-file">
-						<div class="col-lg-7 p-2">
-							<input type="file" class="custom-file-input"
-								   id="inputGroupFile03"> <label class="custom-file-label"
-																 for="inputGroupFile03">Choose file</label>
-						</div>
-						<input type="submit" value="Upload" />
-					</div>
-				</form>
-			</div>
 		</div>
 
 		<div class="row p-2">

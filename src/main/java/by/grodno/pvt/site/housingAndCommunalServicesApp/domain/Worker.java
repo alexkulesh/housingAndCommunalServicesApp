@@ -21,7 +21,7 @@ public class Worker {
     private User user;
     private WorkerRole workerRole;
     private Boolean isBusy = false;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "workBrigade_id")
     private WorkBrigade workBrigade;
     @Override
