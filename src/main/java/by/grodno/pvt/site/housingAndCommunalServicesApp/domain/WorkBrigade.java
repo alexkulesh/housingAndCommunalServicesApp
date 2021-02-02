@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "workBrigade_table")
 public class WorkBrigade {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     @Temporal(TemporalType.TIMESTAMP)

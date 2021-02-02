@@ -29,18 +29,19 @@ public class WorkerHireService {
         return workersRepo.findByIsBusy(false);
     };
 
-    public List<Worker> busyPlumbers() {
-        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(new Date());
+    public List<Worker> busyPlumbers(Date date) {
+        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(date);
         return findByWorkEndTimeBefore.stream().map(WorkBrigade::getPlumber).collect(Collectors.toList());
     };
-    public List<Worker> busyElectricians() {
-        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(new Date());
+    public List<Worker> busyElectricians(Date date) {
+        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(date);
         return findByWorkEndTimeBefore.stream().map(WorkBrigade::getElectrician).collect(Collectors.toList());
     };
-    public List<Worker> busyRepairers() {
-        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(new Date());
+    public List<Worker> busyRepairers(Date date) {
+        List<WorkBrigade> findByWorkEndTimeBefore = repo.findByWorkEndTimeBefore(date);
         return findByWorkEndTimeBefore.stream().map(WorkBrigade::getRepairer).collect(Collectors.toList());
     };
+
 
     public void hireWorkers(Integer plumber, Integer electrician, Integer repairer) {
         Worker findPlumber = workersRepo.findById(plumber).get();

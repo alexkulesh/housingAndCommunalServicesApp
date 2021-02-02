@@ -10,10 +10,12 @@
 <th:block th:insert="fragments/header.html :: css" />
 
 <th:block th:insert="fragments/navBar.html :: navBar" />
-<body th:style="'background: url(https://img.newgrodno.by/wp-content/uploads/2019/06/IMG_9827.jpg);'">>
+<body th:style="'background: url(https://img.newgrodno.by/wp-content/uploads/15836151771fa2a7fc355fb9d451d0b54860ad180a-768x512.jpg);'">
+<div align="center">
 <div th:if="${param.error}">Invalid username and password.</div>
 <div th:if="${param.logout}">You have been logged out.</div>
 <form th:action="@{/login}" method="post">
+    <br>
     <div>
         <label> User Name : <input type="text" name="username" />
         </label>
@@ -30,7 +32,7 @@
 
 
 <th:block th:insert="fragments/scripts.html :: js" />
-
+</div>
 </body>
 
 

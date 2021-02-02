@@ -16,7 +16,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 @Service
 @Transactional
-public class JPARequestFormService implements RequestFormService, InitializingBean {
+public class JPARequestFormService implements RequestFormService {
     @Autowired
     private RequestFormRepo repo;
 
@@ -50,15 +50,6 @@ public class JPARequestFormService implements RequestFormService, InitializingBe
     @Override
     public List<RequestForm> findByUser(User user) {
         return repo.findByUser(user);
-    }
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        RequestForm requestForm = new RequestForm(null, null, null, WorkScale.NONE, WorkScale.FOUR,  WorkScale.TWO);
-        RequestForm requestForm2 = new RequestForm(null, null, null, WorkScale.FOUR, WorkScale.NONE,  WorkScale.TWO);
-        RequestForm requestForm3 = new RequestForm(null, null, null, WorkScale.NONE, WorkScale.FOUR,  WorkScale.TWO);
-        repo.save(requestForm);
-        repo.save(requestForm2);
-        repo.save(requestForm3);
     }
 
     @Override

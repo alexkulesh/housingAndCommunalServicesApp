@@ -33,8 +33,6 @@ public class UserController {
 	private UserRepo userRepo;
 	@Autowired
 	private ConversionService convertionService;
-	@Autowired
-	UserRepo uRepo;
 
 	@GetMapping("/users")
 	public String getAllUsers(@RequestParam(required = false, name = "pn") Integer pageNum,
@@ -66,7 +64,7 @@ public class UserController {
 
 	@GetMapping("/apis/v1/users")
 	@ResponseBody
-	public List<UserDTO> getAllPersons() {
+	public List<UserDTO> getAllUsers() {
 		return userService.getUsers().stream().map(p -> convertionService.convert(p, UserDTO.class))
 				.collect(Collectors.toList());
 	}
@@ -87,12 +85,18 @@ public class UserController {
 			model.addAttribute("userDTO", userDTO);
 			return "editUserView";
 		}
-		Integer userId = uRepo.findByEmail(currentUser.getUsername()).getId();
+		Integer userId = userRepo.findByEmail(currentUser.getUsername()).getId();
 		userService.getUser(userId);
 		userService.edit(userDTO);
 
 		return "redirect:/users";
 	}
 
+	@RequestMapping(path = "/users/deleteUser/{id}")
+	public String deleteUser(@PathVariable ("id") Integer id, @AuthenticationPrincipal UserDetails currentUser){
+		Integer userId = userRepo.findByEmail(currentUser.getUsername()).getId();
+		userRepo.deleteById(userId);
+		return "redirect:/index";
+	}
 
 }

@@ -11,43 +11,62 @@
       crossorigin="anonymous">
 
 <body>
-    <div class="container">
-        <h1>Request form</h1>
+    <div align="center">
+        <h1>New request</h1>
         <hr>
-        <h2>Save request form</h2>
-        <form action="#" th:action="@{/saveRequestForm}" th:object="${requestForms}" method="POST">
-            <input type="text" th:field = "*{completionDate}" placeholder="Completion date" class="form-control mb-4 col-4" required="required">
+        <h2>request data</h2>
+        <form action="#" th:action="@{/saveRequestForm}" th:object="${requestForm}" method="POST">
+            <input type="text" th:field = "*{completionDate}" placeholder="Completion date" class="form-control mb-2 col-2" required="required">
 
-            <input type="text" th:field = "*{user}" placeholder="User" class="form-control mb-4 col-4" required="required">
+            <div class="form-group">
+                <label class="control-label col-sm-2" ><font color="Black" size="4">User id:</font></label>
+                <div class="col-sm-10">
+                    <select name="user" th:field="*{user}">
+                        <option
+                                th:each="user : ${userList}"
+                                th:value="${user.id}" th:text="${user.id}">
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-            <select th:field="*{heatSupplyWorkScale}" class="form-control mb-4 col-4" required="required">
-                <option th:value="NONE" th:text="NONE"></option>
-                <option th:value="ONE" th:text="ONE"></option>
-                <option th:value="TWO" th:text="TWO"></option>
-                <option th:value="THREE" th:text="THREE"></option>
-                <option th:value="FOUR" th:text="FOUR"></option>
-                <option th:value="FLAT" th:text="FLAT"></option>
-            </select>
+            <div class="form-group">
+                <label class="control-label col-sm-2" ><font color="Black" size="4">Water supply work scale(rooms):</font></label>
+                <div class="col-sm-10">
+                    <select name="waterSupplyWorkScale" th:field="*{waterSupplyWorkScale}">
+                        <option
+                                th:each="waterSupplyWorkScale : ${workScale}"
+                                th:value="${waterSupplyWorkScale}" th:text="${waterSupplyWorkScale}">
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-            <select th:field="*{powerSupplyWorkScale}" class="form-control mb-4 col-4" required="required">
-                <option th:value="NONE" th:text="NONE"></option>
-                <option th:value="ONE" th:text="ONE"></option>
-                <option th:value="TWO" th:text="TWO"></option>
-                <option th:value="THREE" th:text="THREE"></option>
-                <option th:value="FOUR" th:text="FOUR"></option>
-                <option th:value="FLAT" th:text="FLAT"></option>
-            </select>
+            <div class="form-group">
+                <label class="control-label col-sm-2" ><font color="Black" size="4">Power supply work scale(rooms):</font></label>
+                <div class="col-sm-10">
+                    <select name="powerSupplyWorkScale" th:field="*{powerSupplyWorkScale}">
+                        <option
+                                th:each="powerSupplyWorkScale : ${workScale}"
+                                th:value="${powerSupplyWorkScale}" th:text="${powerSupplyWorkScale}">
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-            <select th:field="*{waterSupplyWorkScale}" class="form-control mb-4 col-4" required="required">
-                <option th:value="NONE" th:text="NONE"></option>
-                <option th:value="ONE" th:text="ONE"></option>
-                <option th:value="TWO" th:text="TWO"></option>
-                <option th:value="THREE" th:text="THREE"></option>
-                <option th:value="FOUR" th:text="FOUR"></option>
-                <option th:value="FLAT" th:text="FLAT"></option>
-            </select>
+            <div class="form-group">
+                <label class="control-label col-sm-2" ><font color="Black" size="4">Repair work scale(rooms):</font></label>
+                <div class="col-sm-10">
+                    <select name="repairWorkScale" th:field="*{repairWorkScale}">
+                        <option
+                                th:each="repairWorkScale : ${workScale}"
+                                th:value="${repairWorkScale}" th:text="${repairWorkScale}">
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-            <button type="submit" class="btn btn-primary">Save request form</button>
+            <button type="submit" class="btn btn-primary">Create request</button>
         </form>
     </div>
 

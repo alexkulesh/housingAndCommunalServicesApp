@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class JPAWorkBrigadeService implements WorkBrigadeService, InitializingBean {
+public class JPAWorkBrigadeService implements WorkBrigadeService {
     @Autowired
     private WorkBrigadeRepo repo;
     @Autowired
@@ -49,10 +49,6 @@ public class JPAWorkBrigadeService implements WorkBrigadeService, InitializingBe
         return repo.findAll(PageRequest.of(pageNum, pageSize, Sort.Direction.ASC, "workBrigade"));
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-
-    }
 
     @Override
     public WorkBrigade getWorkBrigade(Integer id) {
@@ -64,4 +60,5 @@ public class JPAWorkBrigadeService implements WorkBrigadeService, InitializingBe
         repo.save(workBrigade);
 
     }
+
 }

@@ -15,11 +15,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" th:href="@{index}">Home
+                <li class="nav-item active"><a class="nav-link" th:href="@{index.html}">Home
                     <span class="sr-only">(current)</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{forUser/addRequestForm}">Create new request</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{editUser}">Edit profile</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{deleteUser}">Delete profile</a></li>
                 <li class="nav-item"><a sec:authorize="hasRole('ROLE_WORKER')" class="nav-link" th:href="@{forWorker/addWorker}">Add worker</a></li>
                 <li class="nav-item"><a sec:authorize="hasRole('ROLE_DISPATCHER')" class="nav-link" th:href="@{forDispatcher/addWorkBrigade}">Add work brigade</a></li>
                 <li class="nav-item dropdown"><a
@@ -31,7 +32,6 @@
                         <a sec:authorize="hasAnyRole('ROLE_DISPATCHER', 'ROLE_ADMIN')" class="dropdown-item" th:href="@{/requestForms}">List of requests</a>
                         <a sec:authorize="hasAnyRole('ROLE_DISPATCHER', 'ROLE_WORKER','ROLE_ADMIN')" class="dropdown-item" th:href="@{/workBrigades}">List of work brigades</a>
                         <a sec:authorize="hasAnyRole('ROLE_DISPATCHER', 'ROLE_WORKER', 'ROLE_ADMIN')" class="dropdown-item" th:href="@{/workers}">List of workers</a>
-                        <a class="dropdown-item" th:href="@{/workPlans}">Work plan</a>
                     </div>
                 </li>
             </ul>

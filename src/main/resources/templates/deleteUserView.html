@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Getting Started: Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<th:block th:insert="fragments/header.html :: css" />
+
+<body>
+
+<th:block th:insert="fragments/navBar.html :: navBar" />
+<div align="center">
+    <h2>Do you realy want to delete your profile?</h2>
+
+    <form class="form-inline my-2 my-lg-0"
+          th:action="@{/users/deleteUser/{id}(id=${user.id})}" method="post">
+       <span sec:authentication="principal.username"></span>
+        <input class="btn btn-outline-success" type="submit" value="Yes"/>
+    </form>
+    <br>
+    <form class="form-inline my-2 my-lg-0"
+          th:action="@{/index}" method="post">
+        <span sec:authentication="principal.username"></span>
+        <input class="btn btn-outline-success" type="submit" value="No"/>
+    </form>
+
+</div>
+</body>
+</html>
