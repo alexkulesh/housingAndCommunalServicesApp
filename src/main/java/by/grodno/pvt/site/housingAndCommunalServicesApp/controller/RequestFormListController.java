@@ -9,6 +9,8 @@ import by.grodno.pvt.site.housingAndCommunalServicesApp.service.RequestFormServi
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,8 @@ public class RequestFormListController {
     private ConversionService convertionService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepo userRepo;
     @GetMapping("/requestForms")
     public String getAllRequestForms(Model model) {
 
@@ -38,10 +42,12 @@ public class RequestFormListController {
     }
 
     @GetMapping("forUser/addRequestForm")
-    public String newRequestForm(Model model){
+    public String newRequestForm(Model model, @AuthenticationPrincipal UserDetails currentUser){
         RequestForm requestForm = new RequestForm();
         List<UserDTO> users = userService.getUsers().stream().map(u -> convertionService.convert(u, UserDTO.class))
                 .collect(Collectors.toList());
+        Integer id = userRepo.findByEmail(currentUser.getUsername()).getId();
+        model.addAttribute("currentUser", userService.getUser(id).getId());
         model.addAttribute("requestForm", requestForm);
         model.addAttribute("userList", users);
         model.addAttribute("workScale", WorkScale.values());
@@ -51,8 +57,12 @@ public class RequestFormListController {
 
     @PostMapping("/saveRequestForm")
     public String saveRequestForm(@ModelAttribute("requestForm") RequestForm requestForm){
+        if(requestForm.getWaterSupplyWorkScale().getScale() == 0 && requestForm.getPowerSupplyWorkScale().getScale() == 0 && requestForm.getRepairWorkScale().getScale() == 0){
+            return "redirect:/";
+        } else {
         requestFormService.saveRequestForm(requestForm);
-        return "redirect:/workPlans";
+        return "redirect:/";
+        }
     }
 
 }

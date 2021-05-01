@@ -1,0 +1,11 @@
+header img {
+    height: 80px;
+}
+body {
+    height: 125vh;
+    background-size: cover;
+
+}
+main {
+    color: white;
+}

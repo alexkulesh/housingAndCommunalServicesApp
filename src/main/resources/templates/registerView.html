@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center  p-1">
         <div class="col-sm  p-1 justify-content-end"
-             style="text-align: right">Email :</div>
+             style="text-align: right"><font color="Blue" size="4">Email :</font></div>
         <div class="col-sm  p-1">
             <input type="text" th:field="*{email}" />
         </div>
@@ -29,7 +29,7 @@
 
     <div class="row justify-content-center  p-1">
         <div class="col-sm  p-1 justify-content-end"
-             style="text-align: right">First name :</div>
+             style="text-align: right"><font color="Blue" size="4">First name :</font></div>
         <div class="col-sm  p-1">
             <input type="text" th:field="*{firstName}" />
         </div>
@@ -39,7 +39,7 @@
 
     <div class="row justify-content-center  p-1">
         <div class="col-sm  p-1 justify-content-end"
-             style="text-align: right">Last name :</div>
+             style="text-align: right"><font color="Blue" size="4">Last name :</font></div>
         <div class="col-sm  p-1">
             <input type="text"  th:field="*{lastName}" />
         </div>
@@ -49,13 +49,24 @@
 
     <div class="row justify-content-center  p-1">
         <div class="col-sm  p-1 justify-content-end"
-             style="text-align: right">Password :</div>
+             style="text-align: right"><font color="Blue" size="4">Password :</font></div>
         <div class="col-sm  p-1">
             <input type="password" th:field="*{password}"/>
         </div>
     </div>
 
     <div class="row justify-content-center alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+
+    <div class="row justify-content-center  p-1">
+        <div class="col-sm  p-1 justify-content-end"
+             style="text-align: right"><font color="Blue" size="4">Phone number :</font></div>
+        <div class="col-sm  p-1">
+            <input type="text" th:field="*{phoneNumber}"/>
+        </div>
+    </div>
+
+    <div class="row justify-content-center alert alert-danger" role="alert" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Name Error</div>
+
 
     <div class="row justify-content-center  p-1">
         <input class="btn btn-primary" type="submit" value="Register" />

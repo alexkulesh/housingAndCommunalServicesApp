@@ -22,7 +22,7 @@ public class RequestForm {
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date completionDate;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

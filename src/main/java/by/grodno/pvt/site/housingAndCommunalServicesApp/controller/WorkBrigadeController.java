@@ -7,7 +7,6 @@ import by.grodno.pvt.site.housingAndCommunalServicesApp.dto.WorkerDTO;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.RequestFormService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkBrigadeService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.WorkerService;
-import by.grodno.pvt.site.housingAndCommunalServicesApp.service.impl.JPAWorkBrigadeService;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.service.impl.WorkerHireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -69,25 +68,21 @@ public class WorkBrigadeController {
         Integer waterSupplyWorkScale = workBrigade.getRequestForm().getWaterSupplyWorkScale().getScale();
         Integer powerSupplyWorkScale = workBrigade.getRequestForm().getPowerSupplyWorkScale().getScale();
         Integer repairWorkScale = workBrigade.getRequestForm().getRepairWorkScale().getScale();
-        if (waterSupplyWorkScale > powerSupplyWorkScale) {
+        if(waterSupplyWorkScale == 0 && powerSupplyWorkScale == 0 && repairWorkScale == 0){
+            return "redirect:/workBrigades";
+        } else {
+        if (waterSupplyWorkScale >= powerSupplyWorkScale && waterSupplyWorkScale >= repairWorkScale) {
             endDate = new Date(startDate.getTime() + 20 * 1000 * waterSupplyWorkScale);
-        } else if (waterSupplyWorkScale > repairWorkScale) {
-            endDate = new Date(startDate.getTime() + 20 * 1000 * waterSupplyWorkScale);
-        } else if (powerSupplyWorkScale > waterSupplyWorkScale) {
+        } else if (powerSupplyWorkScale >= waterSupplyWorkScale && powerSupplyWorkScale >= repairWorkScale) {
             endDate = new Date(startDate.getTime() + 20 * 1000 * powerSupplyWorkScale);
-        } else if (powerSupplyWorkScale > repairWorkScale) {
-            endDate = new Date(startDate.getTime() + 20 * 1000 * powerSupplyWorkScale);
-        } else if (repairWorkScale > waterSupplyWorkScale) {
-            endDate = new Date(startDate.getTime() + 20 * 1000 * repairWorkScale);
-        } else if (repairWorkScale > powerSupplyWorkScale) {
+        } else if (repairWorkScale >= waterSupplyWorkScale && repairWorkScale >= powerSupplyWorkScale) {
             endDate = new Date(startDate.getTime() + 20 * 1000 * repairWorkScale);
         }
-
         workerHireService.hireWorkers(workBrigade.getPlumber().getId(), workBrigade.getElectrician().getId(), workBrigade.getRepairer().getId());
         workBrigade.setWorkStartTime(startDate);
         workBrigade.setWorkEndTime(endDate);
         workBrigadeService.saveWorkBrigade(workBrigade);
-        return "redirect:/workBrigades";
+        return "redirect:/workBrigades";}
     }
 
 }

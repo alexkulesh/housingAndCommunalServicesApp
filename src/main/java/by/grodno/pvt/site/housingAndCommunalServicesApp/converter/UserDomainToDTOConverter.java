@@ -15,6 +15,7 @@ public class UserDomainToDTOConverter implements Converter<User, UserDTO> {
 		userDto.setId(source.getId());
 		userDto.setFirstName(source.getFirstName());
 		userDto.setLastName(source.getLastName());
+		userDto.setBirthDate(source.getBirthDate());
 		userDto.setPhoneNumber(source.getPhoneNumber());
 		userDto.setRole(source.getRole());
 		return userDto;

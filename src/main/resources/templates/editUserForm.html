@@ -28,20 +28,19 @@ font-size: 25px;
 
 <th:block th:insert="fragments/navBar.html :: navBar" />
 <div align="center">
-    <h6>Do you really want to delete your profile <span sec:authentication="principal.username"></span> ?</h6>
+    <h6>Do you want to edit your profile data <span sec:authentication="principal.username"></span> ?</h6>
 
 
-        <form class="form-inline justify-content-center"
-                th:field="user"
-          th:action="@{/users/deleteUser/{userId}(userId=${user.id})}" method="post" >
+    <form class="form-inline justify-content-center"
+          th:href="@{/editUserView}"  >
         <input class="btn btn-danger" type="submit" value="Yes"/>
-        </form>
+    </form>
 
-        <br>
-        <form class="form-inline justify-content-center"
+    <br>
+    <form class="form-inline justify-content-center"
           th:action="@{/}">
         <input  class="btn btn-outline-secondary" type="submit" value="No"/>
-        </form>
+    </form>
 </div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package by.grodno.pvt.site.housingAndCommunalServicesApp.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +10,8 @@ import javax.validation.Valid;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.domain.User;
 import by.grodno.pvt.site.housingAndCommunalServicesApp.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -17,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import by.grodno.pvt.site.housingAndCommunalServicesApp.dto.UserDTO;
@@ -69,12 +74,35 @@ public class UserController {
 				.collect(Collectors.toList());
 	}
 
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
+
+	//for editing user's data from navigation bar
+	@GetMapping("/editUserForm")
+	public String editUserView(@Valid UserDTO userDTO, @AuthenticationPrincipal UserDetails currentUser, Model model){
+		List<UserDTO> users = userService.getUsers().stream().map(u -> convertionService.convert(u, UserDTO.class))
+				.collect(Collectors.toList());
+		Integer userId = userRepo.findByEmail(currentUser.getUsername()).getId();
+		model.addAttribute("users", users);
+		model.addAttribute("currentUser",userService.getUser(userId).getId());
+		model.addAttribute("user", userService.getUser(userId));
+		return "editUserView";
+	}
+
+	//for editing user's data from list
 	@GetMapping("/users/edit/{id}")
 	@PreAuthorize("@editUserVouter.checkUserId(authentication,#id)")
-	public String editUserForm(@PathVariable Integer id, Model model) {
-
+	public String editUserForm(@Valid UserDTO userDTO, @PathVariable Integer id, @AuthenticationPrincipal UserDetails currentUser, Model model) {
+		List<UserDTO> users = userService.getUsers().stream().map(u -> convertionService.convert(u, UserDTO.class))
+				.collect(Collectors.toList());
+		id = userRepo.findByEmail(currentUser.getUsername()).getId();
+		model.addAttribute("users", users);
 		model.addAttribute("user", userService.getUser(id));
-
+		model.addAttribute("currentUser",userService.getUser(id).getId());
 		return "editUserView";
 	}
 
@@ -85,18 +113,40 @@ public class UserController {
 			model.addAttribute("userDTO", userDTO);
 			return "editUserView";
 		}
-		Integer userId = userRepo.findByEmail(currentUser.getUsername()).getId();
-		userService.getUser(userId);
-		userService.edit(userDTO);
 
-		return "redirect:/users";
+		User user = new User();
+		user.setId(id);
+		user.setFirstName(userDTO.getFirstName());
+		user.setLastName(userDTO.getLastName());
+		user.setBirthDate(userDTO.getBirthDate());
+		user.setPhoneNumber(userDTO.getPhoneNumber());
+		userService.edit(userDTO);
+		return "redirect:/";
 	}
 
-	@RequestMapping(path = "/users/deleteUser/{id}")
-	public String deleteUser(@PathVariable ("id") Integer id, @AuthenticationPrincipal UserDetails currentUser){
+	@GetMapping("/deleteUserView")
+	public String deleteUserView(@Valid UserDTO userDTO, @AuthenticationPrincipal UserDetails currentUser, BindingResult br, Model model){
+		if (br.hasErrors()) {
+			model.addAttribute("userDTO", userDTO);
+			return "deleteUserView";
+		}
 		Integer userId = userRepo.findByEmail(currentUser.getUsername()).getId();
+		model.addAttribute("user", userService.getUser(userId));
+		return "deleteUserView";
+	}
+
+
+	@RequestMapping(path = "/users/deleteUser/{userId}")
+	public String deleteUser(@PathVariable Integer userId, @AuthenticationPrincipal UserDetails currentUser, Model model){
+		List<UserDTO> users = userService.getUsers().stream().map(u -> convertionService.convert(u, UserDTO.class))
+				.collect(Collectors.toList());
+		userId = userRepo.findByEmail(currentUser.getUsername()).getId();
+		model.addAttribute("users", users);
+		model.addAttribute("currentUser",userService.getUser(userId).getId());
+		model.addAttribute("user", userService.getUser(userId));
+		model.addAttribute("userId", userId);
 		userRepo.deleteById(userId);
-		return "redirect:/index";
+		return "redirect:/";
 	}
 
 }

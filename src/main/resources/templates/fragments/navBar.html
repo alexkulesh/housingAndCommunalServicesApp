@@ -15,12 +15,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" th:href="@{index.html}">Home
+                <li class="nav-item active"><a class="nav-link" th:href="@{/}">Home
                     <span class="sr-only">(current)</span>
                 </a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{forUser/addRequestForm}">Create new request</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{editUser}">Edit profile</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{deleteUser}">Delete profile</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{editUserForm}">Edit profile</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{deleteUserView}">Delete profile</a></li>
                 <li class="nav-item"><a sec:authorize="hasRole('ROLE_WORKER')" class="nav-link" th:href="@{forWorker/addWorker}">Add worker</a></li>
                 <li class="nav-item"><a sec:authorize="hasRole('ROLE_DISPATCHER')" class="nav-link" th:href="@{forDispatcher/addWorkBrigade}">Add work brigade</a></li>
                 <li class="nav-item dropdown"><a

@@ -29,7 +29,7 @@
     <div class="border col-lg-2" th:text="${worker.workerRole}"></div>
     <div class="border col-lg-2" th:text="${worker.isBusy}"></div>
 
-    <div class="border col-lg-2">
+    <div class="border col-lg-2" sec:authorize="hasRole('ROLE_WORKER')">
         <a class="btn btn-link"
            th:href="@{/workers/edit/{id}(id=${worker.id})}" th:if="${currentUser == worker.user}">Edit</a>
     </div>

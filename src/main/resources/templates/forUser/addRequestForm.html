@@ -18,20 +18,11 @@
         <form action="#" th:action="@{/saveRequestForm}" th:object="${requestForm}" method="POST">
             <input type="text" th:field = "*{completionDate}" placeholder="Completion date" class="form-control mb-2 col-2" required="required">
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" ><font color="Black" size="4">User id:</font></label>
-                <div class="col-sm-10">
-                    <select name="user" th:field="*{user}">
-                        <option
-                                th:each="user : ${userList}"
-                                th:value="${user.id}" th:text="${user.id}">
-                        </option>
-                    </select>
-                </div>
-            </div>
+            <input type="hidden" th:value="${currentUser}"  name="user">
+
 
             <div class="form-group">
-                <label class="control-label col-sm-2" ><font color="Black" size="4">Water supply work scale(rooms):</font></label>
+                <label class="control-label col-sm-2" ><font color="Blue" size="4">Water supply work scale(rooms):</font></label>
                 <div class="col-sm-10">
                     <select name="waterSupplyWorkScale" th:field="*{waterSupplyWorkScale}">
                         <option
@@ -43,7 +34,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" ><font color="Black" size="4">Power supply work scale(rooms):</font></label>
+                <label class="control-label col-sm-2" ><font color="Blue" size="4">Power supply work scale(rooms):</font></label>
                 <div class="col-sm-10">
                     <select name="powerSupplyWorkScale" th:field="*{powerSupplyWorkScale}">
                         <option
@@ -55,7 +46,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" ><font color="Black" size="4">Repair work scale(rooms):</font></label>
+                <label class="control-label col-sm-2" ><font color="Blue" size="4">Repair work scale(rooms):</font></label>
                 <div class="col-sm-10">
                     <select name="repairWorkScale" th:field="*{repairWorkScale}">
                         <option

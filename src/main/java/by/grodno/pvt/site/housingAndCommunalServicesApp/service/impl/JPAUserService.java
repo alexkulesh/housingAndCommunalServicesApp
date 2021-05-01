@@ -96,9 +96,9 @@ public class JPAUserService implements UserService{
 		User findById = repo.findById(userDTO.getId()).orElseThrow(() -> new UserNotFoundException());
 		findById.setFirstName(userDTO.getFirstName());
 		findById.setLastName(userDTO.getLastName());
+		findById.setBirthDate(userDTO.getBirthDate());
+		findById.setPhoneNumber(userDTO.getPhoneNumber());
 		repo.save(findById);
 	}
-
-
 
 }

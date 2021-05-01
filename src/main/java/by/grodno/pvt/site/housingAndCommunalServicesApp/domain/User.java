@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @NoArgsConstructor
@@ -27,11 +28,18 @@ public class User {
 
 	private String phoneNumber;
 
+
 	@Email
 	@Column(unique = true)
 	private String email;
 
-	private Date birthdate;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private Date birthDate;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "users_table_requests", joinColumns = {
+			@JoinColumn(name = "r1") }, inverseJoinColumns = {
+			@JoinColumn(name = "r2") })
+	private RequestForm requestForms;
 
 	private UserRole role;
 
